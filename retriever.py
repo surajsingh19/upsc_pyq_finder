@@ -210,7 +210,15 @@ def mains_run(context, k, threshold):
 
     ordered_questions = ordered_questions[:k]
 
-    return ordered_questions
+    # creating unique
+    seen = set()
+    unique_ordered_questions=[]
+    for i in ordered_questions:
+        if i['id'] not in seen:
+            unique_ordered_questions.append(i)
+            seen.add(i['id'])
+
+    return unique_ordered_questions
 
 
 ############# Prelims #################
@@ -232,7 +240,15 @@ def prelims_run(context, k, threshold):
 
     ordered_questions = ordered_questions[:k]
 
-    return ordered_questions
+    # creating unique
+    seen = set()
+    unique_ordered_questions=[]
+    for i in ordered_questions:
+        if i['id'] not in seen:
+            unique_ordered_questions.append(i)
+            seen.add(i['id'])
+
+    return unique_ordered_questions
 
 
 
