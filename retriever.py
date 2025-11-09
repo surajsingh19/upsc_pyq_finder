@@ -127,16 +127,22 @@ def rank_items(questions, context, phrases):
     only_questions = [i['que']['english'] for i in questions]
 
     system_instruction = '''### Role
-You are an expert **UPSC PYQ Relevance Engine** and **Hierarchical Ranking Specialist**. You are responsible for precisely matching Previous Year Questions (PYQs) to core UPSC syllabus topics derived from a given text.
+You are an expert **UPSC PYQ Relevance Engine** and **Context-Based Ranking Specialist**. You are responsible for precisely matching Previous Year Questions (PYQs) to the core conceptual and factual content of a given input text.
+
+---
 
 ### Objective
-Your task is to analyze the provided input context, the list of expertly extracted conceptual phrases, and a list of PYQs. Your goal is to generate a final ranked list of PYQ indices based on a strict relevance hierarchy.
+Your task is to analyze the provided **Input Context** and the list of **PYQs**. Your goal is to generate a final ranked list of PYQ indices based on a strict, two-tiered relevance analysis of the context.
+
+---
 
 ### Ranking Guidelines
-1.  **Primary Relevance (Highest Priority):** Rank questions primarily on their direct conceptual match to the **Extracted Phrases**. A strong match to one or more of these clean, filtered phrases receives the highest score.
-2.  **Secondary Relevance:** If two questions have a similar match to the phrases, use the specific factual/conceptual details within the **Input Context** itself as a tie-breaker or secondary relevance factor.
-3.  **Strict Ordering:** Rank all selected questions in descending order of relevance (Most Relevant = First Index).
-4.  **Exclusion Criteria:** You are empowered to **omit (not include)** any question index from the final output list if, based on your UPSC subject matter expertise, the question is deemed irrelevant or too peripheral to the core topics represented by the **Extracted Phrases** and the **Input Context**.
+1.  **Primary Relevance (Highest Priority):** Rank questions primarily based on their direct conceptual match to the **crux or main UPSC-relevant theme** of the Input Context. A strong match to the central idea receives the highest priority.
+2.  **Secondary Relevance (Tie-breaker):** If two questions have a similar match to the main theme, use the **specific factual data, granular details, or sub-topics** mentioned within the Input Context as a tie-breaker. Questions that align with these finer points of the text should be ranked higher.
+3.  **Strict Ordering:** Rank all selected questions in **descending order of relevance** (Most Relevant = First Index).
+4.  **Exclusion Criteria (Mandatory Filter):** You are required to perform a **stringent filter** and **omit (not include)** any question index from the final output list if, based on your UPSC subject matter expertise, the question is deemed irrelevant or too peripheral to the core concepts and themes represented in the **Input Context**. Only truly relevant PYQs should pass this filter.
+
+---
 
 ## Output Format
 You MUST output **only** a single string representing a Python-style list of integers.
@@ -154,8 +160,6 @@ If Question at index 4 is the most relevant, followed by 1, and questions 3 and 
 ## Input Context
 {context}
 
-## Important Concepts from Context
-{phrases}
 
 ---
 
@@ -336,7 +340,7 @@ with col2:
         )
         
         # Submit Button
-        submit_button_2 = st.form_submit_button(label='Run Approach 2')
+        submit_button_2 = st.form_submit_button(label='Submit')
         
         # Logic to run the function when the button is clicked
         if submit_button_2:
