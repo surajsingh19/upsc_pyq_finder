@@ -28,10 +28,10 @@ except Exception as e:
 
 
 # read pickle tmp solution
-with open('upsc_prelims_pyq_embeddings.pkl','rb') as f:
+with open('p_embedd.pkl','rb') as f:
     prelims_pyqs = pickle.load(f)
 
-with open('upsc_mains_pyq_embeddings.pkl','rb') as f:
+with open('m_embedd.pkl','rb') as f:
     mains_pyqs = pickle.load(f)
 
 
